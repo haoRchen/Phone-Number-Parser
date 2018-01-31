@@ -1,8 +1,8 @@
-let express = require('express')
-let port = process.env.PORT || 3000;
-let controller = require('./controller')
+const express = require('express')
+const port = process.env.PORT || 3000;
+const controller = require('./controller')
 
-let app = express()
+const app = express()
 
 app.use('/', controller)
 
