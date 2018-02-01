@@ -19,7 +19,7 @@ test('GET for URL with numbers should be 200 and [\"(416) 491-5050\",\"(647) 860
     expect(response.text).toBe('[\"(416) 491-5050\",\"(647) 860-3041\"]')
 })
 
-test('POST request for file containing number should be  [\"(416) 491-5050\",\"(647) 860-3041\"]', async () => {
+test("POST request for file containing number should be  [\'(416) 491-5050\',\'(647) 860-3041\']", async () => {
     const response = 
         await request(URL)
             .post(postURL)
