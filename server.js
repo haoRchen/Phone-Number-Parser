@@ -56,16 +56,13 @@ app.post('/api/phonenumbers/parse/file', upload.single('file'), (req, res) =>{
     }else {
         var content = Buffer.from(fs.readFileSync(req.file.path), 'base64');
         var numbers = content.toString().split('\n')
-        console.log(numbers)
         var finalArr = ParseNumberFromString(numbers);
-        console.log(finalArr)
         res.setHeader('Content-Type', 'text/plain');
         res.status(200).send(finalArr)
           
     }
 })
 app.post('*', (req, res) =>{
-    console.log("Post: *")
     res.status(404).send("invalid post request")
 })
 
