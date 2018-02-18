@@ -55,7 +55,7 @@ app.post('/api/phonenumbers/parse/file', upload.single('file'), (req, res) => {
     } else if (req.file.originalname.indexOf(".pdf") !== -1)  {																			//this line is used to check if .pdf is in the file name
 		pdfParser.on("pdfParser_dataError", errData => res.status(200).send('There was an error in parsing the pdf file submitted.') );	//if there is an error parsing then display an error message
 		pdfParser.on("pdfParser_dataReady", pdfData => {																				//If the parsing works then enter this part of the code
-			var content = pdfParser.getRawTextContent()																					//get the body and store it in content
+			var content = pdfParser.getRawTextContent()																					
 			var numbers = content.toString().split('\n')																				//Used to clean the text of unnecessary text and lines
 			var finalArray = ParseNumberFromString(numbers)
 			res.status(200).send(finalArray)
