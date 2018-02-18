@@ -5,10 +5,12 @@ const bodyParser = require('body-parser')
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
 const PNF = require('google-libphonenumber').PhoneNumberFormat
 const fs = require('fs')
+PDFParser = require("pdf2json")
 
 var app = express()
 
 const upload = multer({ dest: 'uploads/' })
+let pdfParser = new PDFParser(this, 1);
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -50,7 +52,16 @@ app.post('/api/phonenumbers/parse/file', upload.single('file'), (req, res) => {
     console.log('Post: file')
     if (!req.file) {
         res.status(400).send('No file posted')
-    } else {
+    } else if (req.file.originalname.indexOf(".pdf") !== -1)  {																			//this line is used to check if .pdf is in the file name
+		pdfParser.on("pdfParser_dataError", errData => res.status(200).send('There was an error in parsing the pdf file submitted.') );	//if there is an error parsing then display an error message
+		pdfParser.on("pdfParser_dataReady", pdfData => {																				//If the parsing works then enter this part of the code
+			var content = pdfParser.getRawTextContent()																					//get the body and store it in content
+			var numbers = content.toString().split('\n')																				//Used to clean the text of unnecessary text and lines
+			var finalArray = ParseNumberFromString(numbers)
+			res.status(200).send(finalArray)
+		});
+		pdfParser.loadPDF(req.file.path)																								//Used to call the pdf parser on the file
+	} else {
         var content = Buffer.from(fs.readFileSync(req.file.path), 'base64')
         var numbers = content.toString().split('\n')
         var finalArr = ParseNumberFromString(numbers)
