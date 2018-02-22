@@ -1,6 +1,6 @@
-# Phone Number Parser
+# Phone Number Parser [![Build Status](https://travis-ci.org/haoRchen/Phone-Number-Parser.svg?branch=master)](https://travis-ci.org/haoRchen/Phone-Number-Parser)
 
-Phone Number Parser is a web service built with Nodejs and Expressjs that uses google's [Libphonenumber](https://github.com/googlei18n/libphonenumber) to parse phone numbers from a string or file. 
+Phone Number Parser is a web service built with Nodejs and Expressjs that uses google's [Libphonenumber](https://github.com/googlei18n/libphonenumber) to parse phone numbers from a string or file.  
 
 To contribute, follow the following steps:
 1. Fork this repo
